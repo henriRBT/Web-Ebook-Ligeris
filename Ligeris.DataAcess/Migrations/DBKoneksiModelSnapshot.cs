@@ -167,9 +167,6 @@ namespace Ligeris.DataAcess.Migrations
 
                     b.Property<string>("AplikasiUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateOnly>("JatuhTempo")
@@ -231,7 +228,7 @@ namespace Ligeris.DataAcess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("AplikasiUserId");
 
                     b.ToTable("OrderHeaders");
                 });
@@ -256,10 +253,6 @@ namespace Ligeris.DataAcess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ISBN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -293,7 +286,6 @@ namespace Ligeris.DataAcess.Migrations
                             CategoryId = 1,
                             Deskripsi = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "SWD9999001",
-                            ImageUrl = "",
                             ListPrice = 100000.0,
                             Price = 90000.0,
                             Price100 = 70000.0,
@@ -307,7 +299,6 @@ namespace Ligeris.DataAcess.Migrations
                             CategoryId = 1,
                             Deskripsi = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "CAW777777701",
-                            ImageUrl = "",
                             ListPrice = 40000.0,
                             Price = 30000.0,
                             Price100 = 25000.0,
@@ -321,7 +312,6 @@ namespace Ligeris.DataAcess.Migrations
                             CategoryId = 2,
                             Deskripsi = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "RITO5555501",
-                            ImageUrl = "",
                             ListPrice = 55000.0,
                             Price = 50000.0,
                             Price100 = 40000.0,
@@ -335,7 +325,6 @@ namespace Ligeris.DataAcess.Migrations
                             CategoryId = 2,
                             Deskripsi = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "WS3333333301",
-                            ImageUrl = "",
                             ListPrice = 70000.0,
                             Price = 65000.0,
                             Price100 = 60000.0,
@@ -349,13 +338,34 @@ namespace Ligeris.DataAcess.Migrations
                             CategoryId = 3,
                             Deskripsi = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "SOTJ1111111101",
-                            ImageUrl = "",
                             ListPrice = 30000.0,
                             Price = 27000.0,
                             Price100 = 25000.0,
                             Price500 = 20000.0,
                             Title = "Rock in the Ocean"
                         });
+                });
+
+            modelBuilder.Entity("Ligeris.Modelss.ProductImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductImage");
                 });
 
             modelBuilder.Entity("Ligeris.Modelss.ShoopingCard", b =>
@@ -643,7 +653,9 @@ namespace Ligeris.DataAcess.Migrations
                 {
                     b.HasOne("Ligeris.Modelss.AplikasiUser", "AplikasiUser")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("AplikasiUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("AplikasiUser");
                 });
@@ -657,6 +669,15 @@ namespace Ligeris.DataAcess.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Ligeris.Modelss.ProductImage", b =>
+                {
+                    b.HasOne("Ligeris.Modelss.Product", null)
+                        .WithMany("ProductImages")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Ligeris.Modelss.ShoopingCard", b =>
@@ -736,6 +757,11 @@ namespace Ligeris.DataAcess.Migrations
                         .HasForeignKey("CompanyId");
 
                     b.Navigation("company");
+                });
+
+            modelBuilder.Entity("Ligeris.Modelss.Product", b =>
+                {
+                    b.Navigation("ProductImages");
                 });
 #pragma warning restore 612, 618
         }

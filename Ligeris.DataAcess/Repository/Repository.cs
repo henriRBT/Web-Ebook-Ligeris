@@ -42,10 +42,10 @@ namespace Ligeris.DataAcess.Repository
             query = query.Where(filter);
             if (!string.IsNullOrEmpty(includePropertis))
             {
-                foreach (var includeProperty in includePropertis.Split(new char[] { ',' },
-                    StringSplitOptions.RemoveEmptyEntries))
+                foreach (var includeProp in includePropertis
+                    .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    query = query.Include(includeProperty);
+                    query = query.Include(includeProp);
                 }
             }
             return query.FirstOrDefault();
@@ -54,18 +54,18 @@ namespace Ligeris.DataAcess.Repository
 		public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter, string? includePropertis = null)
         {
 			IQueryable<T> query = dbSet;
-			if(filter != null)
+			if (filter != null)
 			{
-                query = query.Where(filter);
-            }
-			if(!string.IsNullOrEmpty(includePropertis))
+				query = query.Where(filter);
+			}
+			if (!string.IsNullOrEmpty(includePropertis))
 			{
-                foreach (var includeProperty in includePropertis.Split(new char[] { ',' }, 
-					StringSplitOptions.RemoveEmptyEntries))
-                {
-                    query = query.Include(includeProperty);
-                }
-            }
+				foreach (var includeProp in includePropertis
+					.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+				{
+					query = query.Include(includeProp);
+				}
+			}
 			return query.ToList();
 		}
 

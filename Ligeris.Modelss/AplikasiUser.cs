@@ -21,6 +21,8 @@ namespace Ligeris.Modelss
         public int? CompanyId { get; set; }
         [ForeignKey("CompanyId")]
         [ValidateNever]
-        public Company company { get; set; }
+        public Company? company { get; set; }
+        [NotMapped] //mengecualikan variabel dari model di database
+        public string Role { get; set; }
     }
 }
