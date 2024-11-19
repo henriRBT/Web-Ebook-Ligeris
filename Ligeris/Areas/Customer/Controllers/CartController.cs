@@ -38,10 +38,11 @@ namespace Ligeris.Areas.Customer.Controllers
                 includePropertis: "Product"),
                 OrderHeader = new()
             };
-
-            foreach (var cart in ShoopingCardVM.ShoopingCartList)
+			IEnumerable<ProductImage> productImages = _unitOfWork.ProductImage.GetAll();
+			foreach (var cart in ShoopingCardVM.ShoopingCartList)
             {
-                cart.Harga = GetHargaQuantity(cart);
+				cart.Product.ProductImages = productImages.Where(u => u.ProductId == cart.Product.Id).ToList();
+				cart.Harga = GetHargaQuantity(cart);
                 ShoopingCardVM.OrderHeader.TotalOrder += (cart.Harga * cart.Count);
             }
             return View(ShoopingCardVM);

@@ -12,12 +12,11 @@ namespace Ligeris.DataAcess.Repository.IRepository
         ICategoryRepository Category { get; }
         IProductRepository Product { get; }
         ICompanyRepository Company { get; }
-
         IShoopingRepository Shooping { get; }
         IAplikasiUserRepository AplikasiUser { get; }
         IOrderHeaderRepository OrderHeader { get; }
         IOrderDetailRepository OrderDetail { get; }
-        
+        IProductImageRepository ProductImage { get; }
         void Save();
     }
 }

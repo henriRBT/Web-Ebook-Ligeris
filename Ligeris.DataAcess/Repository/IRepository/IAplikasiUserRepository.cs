@@ -9,5 +9,6 @@ namespace Ligeris.DataAcess.Repository.IRepository
 {
 	public interface IAplikasiUserRepository :IRepository<AplikasiUser>
 	{
+		public void Update(AplikasiUser aplikasiUser);
 	}
 }

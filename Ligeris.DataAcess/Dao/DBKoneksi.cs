@@ -15,11 +15,11 @@ namespace Ligeris.DataAcess.Dao
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Company> Companies { get; set; }
-
         public DbSet<ShoopingCard> ShoopingCards { get; set; }
         public DbSet<AplikasiUser> AplikasiUsers { get; set; }
         public DbSet<OrderHeader> OrderHeaders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }    
+        public DbSet<ProductImage> ProductImages { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -73,8 +73,7 @@ namespace Ligeris.DataAcess.Dao
                     Price = 90000,
                     Price100 = 70000,
                     Price500 = 50000,
-                    CategoryId= 1,
-                    ImageUrl = ""
+                    CategoryId= 1
 				},
                 new Product
                 {
@@ -87,8 +86,7 @@ namespace Ligeris.DataAcess.Dao
                     Price = 30000,
                     Price100 = 25000,
                     Price500 = 20000,
-					CategoryId = 1,
-					ImageUrl = ""
+					CategoryId = 1
 				},
                 new Product
                 {
@@ -101,8 +99,7 @@ namespace Ligeris.DataAcess.Dao
                     Price = 50000,
                     Price100 = 40000,
                     Price500 = 35000,
-					CategoryId = 2,
-					ImageUrl = ""
+					CategoryId = 2
 				},
                 new Product
                 {
@@ -115,8 +112,7 @@ namespace Ligeris.DataAcess.Dao
                     Price = 65000,
                     Price100 = 60000,
                     Price500 = 55000,
-					CategoryId = 2,
-					ImageUrl = ""
+					CategoryId = 2
 				},
                 new Product
                 {
@@ -129,8 +125,7 @@ namespace Ligeris.DataAcess.Dao
                     Price = 27000,
                     Price100 = 25000,
                     Price500 = 20000,
-					CategoryId = 3,
-					ImageUrl = ""
+					CategoryId = 3
 				}
                 );
         }

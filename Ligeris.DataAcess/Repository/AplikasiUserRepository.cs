@@ -19,5 +19,9 @@ namespace Ligeris.DataAcess.Repository
 			_db = db;
 
 		}
-	}
+        public void Update(AplikasiUser aplikasiUser)
+		{
+            _db.AplikasiUsers.Update(aplikasiUser);
+        }
+    }
 }

@@ -23,7 +23,7 @@ namespace Ligeris.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includePropertis:"Category");
+            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includePropertis: "Category,ProductImages");
             return View(productList);
         }
 
@@ -31,7 +31,7 @@ namespace Ligeris.Areas.Customer.Controllers
         {
             ShoopingCard card = new()
             {
-                Product = _unitOfWork.Product.Get(u => u.Id == productId, includePropertis: "Category"),
+				Product = _unitOfWork.Product.Get(u => u.Id == productId, includePropertis: "Category,ProductImages"),
                 Count = 1,
                 ProductId = productId
             };
